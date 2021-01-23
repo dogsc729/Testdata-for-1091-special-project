@@ -15,6 +15,8 @@
 #include <ctime>
 #include <map>
 #include <time.h>
+#include <bitset>
+#include <typeinfo>
 
 using namespace std;
 
@@ -25,7 +27,7 @@ int main(int argc, char *argv[])
     string kerneltype;
     vector<vector<int>> image(500);
     vector<vector<int>> kernel(500);
-    vector<int> output = {};
+    vector<int> output;
     cin >> imagetype >> kerneltype;
     if (imagetype == "INT8")
     {
@@ -41,9 +43,32 @@ int main(int argc, char *argv[])
         {
             for (int j = 0; j < 3; j++)
             {
+                bitset<8> bs_INT8(image[i][j]);
+                //string bsINT8 = bs_INT8.to_string();
+                //string first = bsINT8.substr(0, 4);
+                //string second = bsINT8.substr(4, 7);
                 fout1 << image[i][j] << " ";
+                //cout << first << " " << second << endl;
+                //cout << hex << uppercase << bs_INT8.to_ulong() << endl;
+                if (image[i][j] < 16 && image[i][j] >= 0)
+                {
+                    if (j < 2)
+                    {
+                        cout << "0" << hex << uppercase << bs_INT8.to_ulong() << "_";
+                    }
+                    else
+                    {
+                        cout << "0" << hex << uppercase << bs_INT8.to_ulong() << endl;
+                    }
+                }
+                else
+                {
+                    if (j < 2)
+                        cout << hex << uppercase << bs_INT8.to_ulong() << "_";
+                    else
+                        cout << hex << uppercase << bs_INT8.to_ulong() << endl;
+                }
             }
-            fout1 << endl;
         }
     }
     if (imagetype == "INT4")
@@ -61,7 +86,12 @@ int main(int argc, char *argv[])
         {
             for (int j = 0; j < 3; j++)
             {
+                bitset<4> bs_INT4_img(image[i][j]);
                 fout1 << image[i][j] << " ";
+                if (j < 2)
+                    cout << "0" << hex << uppercase << bs_INT4_img.to_ulong() << "_";
+                else
+                    cout << "0" << hex << uppercase << bs_INT4_img.to_ulong() << endl;
             }
             fout1 << endl;
         }
@@ -152,7 +182,12 @@ int main(int argc, char *argv[])
         {
             for (int j = 0; j < 3; j++)
             {
+                bitset<4> bs_INT4_ker(kernel[i][j]);
                 fout2 << kernel[i][j] << " ";
+                if (j < 2)
+                    cout << "0" << hex << uppercase << bs_INT4_ker.to_ulong() << "_";
+                else
+                    cout << "0" << hex << uppercase << bs_INT4_ker.to_ulong() << endl;
             }
             fout2 << endl;
         }
@@ -170,7 +205,9 @@ int main(int argc, char *argv[])
             }
         }
         output.push_back(sum);
+        bitset<20> bs_out(sum);
         fout3 << output[i] << endl;
+        cout << hex << uppercase << bs_out.to_ulong() << endl;
     }
     fout1.close();
     fout2.close();
