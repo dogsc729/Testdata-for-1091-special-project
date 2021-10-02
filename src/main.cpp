@@ -1,7 +1,7 @@
 // **************************************************************************
 //  File       [main.cpp]
 //  Author     [Shu-Yu Lin]
-//  Synopsis   [The main program of 2020 fall Algorithm PA3]
+//  Synopsis   [The main program of 2020 fall special project final project]
 // **************************************************************************
 
 #include <cstring>
